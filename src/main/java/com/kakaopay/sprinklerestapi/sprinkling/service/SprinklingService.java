@@ -3,35 +3,41 @@ package com.kakaopay.sprinklerestapi.sprinkling.service;
 import com.kakaopay.sprinklerestapi.generic.money.domain.Money;
 import com.kakaopay.sprinklerestapi.sprinkling.domain.Sprinkling;
 import com.kakaopay.sprinklerestapi.sprinkling.domain.SprinklingRepository;
-import com.kakaopay.sprinklerestapi.sprinkling.domain.TokenProvider;
-import com.kakaopay.sprinklerestapi.sprinkling.domain.Validator;
+import com.kakaopay.sprinklerestapi.sprinkling.exception.SprinklingNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.kakaopay.sprinklerestapi.sprinkling.service.SprinklingDto.*;
-
 @Service
 @RequiredArgsConstructor
 public class SprinklingService {
-
-    private final Validator validator;
+    private final SprinklingValidator sprinklingValidator;
     private final SprinklingRepository sprinklingRepository;
-    private final TokenProvider tokenProvider;
+    private final SprinklingMapper sprinklingMapper;
 
     @Transactional
-    public Sprinkling createSprinkling(CreateRequest createRequest, int creatorId, String roomId){
-        validator.validate(createRequest);
-        String token = tokenProvider.generateToken();
-        Sprinkling sprinkling = Sprinkling.builder()
-                .amount(Money.wons(createRequest.getAmount()))
-                .peopleCount(createRequest.getPeopleCount())
-                .creatorId(creatorId)
-                .roomId(roomId)
-                .token(token)
-                .build();
+    public SprinklingCreateResponseDto create(SprinklingCreateRequestDto createRequest, Long creatorId, String roomId){
+        sprinklingValidator.validateCreateRequest(createRequest);
+
+        Sprinkling sprinkling = sprinklingMapper.mapFrom(createRequest, creatorId, roomId);
         Sprinkling savedSprinkling = sprinklingRepository.save(sprinkling);
 
-        return savedSprinkling;
+        return SprinklingCreateResponseDto.of(savedSprinkling);
     }
+
+    @Transactional
+    public SprinklingUpdateResponseDto receive(Long id, Long receiverId, String roomId, String token){
+        Sprinkling sprinkling = sprinklingRepository.findById(id).orElseThrow(() -> new SprinklingNotFoundException(id));
+        sprinklingValidator.validateReceiving(sprinkling, receiverId, roomId, token);
+        Money receivedMoney = sprinkling.receiving(receiverId);
+
+        return SprinklingUpdateResponseDto.of(sprinkling, receiverId, receivedMoney);
+    }
+
+    @Transactional
+    public SprinklingQueryResponseDto findById(Long id, Long creatorId, String token){
+        return null;
+    }
+
+
 }
