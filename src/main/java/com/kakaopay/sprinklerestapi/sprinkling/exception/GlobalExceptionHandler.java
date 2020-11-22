@@ -57,8 +57,8 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(apiError, apiError.getStatus());
   }
 
-  @ExceptionHandler(SprinklingNotFoundException.class)
-  protected ResponseEntity<ApiError> handle(SprinklingNotFoundException e) {
+  @ExceptionHandler(NotFoundException.class)
+  protected ResponseEntity<ApiError> handle(NotFoundException e) {
     ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, e.getLocalizedMessage(), e);
     return new ResponseEntity<>(apiError, apiError.getStatus());
   }
@@ -69,8 +69,8 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(apiError, apiError.getStatus());
   }
 
-  @ExceptionHandler(AmountLessThanPeopleCountException.class)
-  protected ResponseEntity<ApiError> handle(AmountLessThanPeopleCountException e) {
+  @ExceptionHandler(SprinkledMoneyLessThanPeopleCountException.class)
+  protected ResponseEntity<ApiError> handle(SprinkledMoneyLessThanPeopleCountException e) {
     ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getLocalizedMessage(), e);
     return new ResponseEntity<>(apiError, apiError.getStatus());
   }

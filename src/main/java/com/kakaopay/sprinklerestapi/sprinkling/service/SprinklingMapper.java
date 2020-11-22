@@ -5,6 +5,7 @@ import com.kakaopay.sprinklerestapi.sprinkling.domain.RandomMoneySplitter;
 import com.kakaopay.sprinklerestapi.sprinkling.domain.Receiving;
 import com.kakaopay.sprinklerestapi.sprinkling.domain.Sprinkling;
 import com.kakaopay.sprinklerestapi.sprinkling.domain.TokenProvider;
+import com.kakaopay.sprinklerestapi.sprinkling.service.dto.CreateSprinklingRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,20 +20,20 @@ public class SprinklingMapper {
 
     private final TokenProvider tokenProvider;
 
-    public Sprinkling mapFrom(SprinklingCreateRequestDto createRequest, Long creatorId, String roomId){
-        Money amount = Money.wons(createRequest.getAmount());
+    public Sprinkling mapFrom(CreateSprinklingRequestDto createRequest, Long creatorId, String roomId){
+        Money sprinkledMoney = Money.wons(createRequest.getSprinkledMoney());
         int peopleCount = createRequest.getPeopleCount();
         String token = tokenProvider.generateToken();
 
         Sprinkling sprinkling = new Sprinkling(
-                roomId, creatorId, peopleCount, amount, token,
-                makeReceivings(amount, peopleCount)
+                roomId, creatorId, peopleCount, sprinkledMoney, token,
+                makeReceivings(sprinkledMoney, peopleCount)
         );
         return sprinkling;
     }
 
-    private List<Receiving> makeReceivings(Money amount, int peopleCount) {
-        return randomMoneySplitter.split(amount, peopleCount)
+    private List<Receiving> makeReceivings(Money sprinkledMoney, int peopleCount) {
+        return randomMoneySplitter.split(sprinkledMoney, peopleCount)
                 .stream()
                 .map(Receiving::new)
                 .collect(toList());

@@ -1,4 +1,4 @@
-package com.kakaopay.sprinklerestapi.sprinkling.response;
+package com.kakaopay.sprinklerestapi.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

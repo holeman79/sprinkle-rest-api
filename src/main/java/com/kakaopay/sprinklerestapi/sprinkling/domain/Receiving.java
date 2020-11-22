@@ -23,28 +23,32 @@ public class Receiving {
     @Column(name = "RECEIVER_ID")
     private Long receiverId;
 
-    @Column(name = "AMOUNT")
-    private Money amount;
+    @Column(name = "RECEIVED_MONEY")
+    private Money receivedMoney;
 
     @Column(name = "RECEIVED_TIME")
     private LocalDateTime receivedTime;
 
+    // Lock 버전
+    @Version
+    private Integer version;
+
     @Builder
-    private Receiving(Long id, Long receiverId, Money amount, LocalDateTime receivedTime){
+    private Receiving(Long id, Long receiverId, Money receivedMoney, LocalDateTime receivedTime){
         this.id = id;
         this.receiverId = receiverId;
-        this.amount = amount;
+        this.receivedMoney = receivedMoney;
         this.receivedTime = receivedTime;
     }
 
-    public Receiving(Money amount){
-        this.amount = amount;
+    public Receiving(Money receivedMoney){
+        this.receivedMoney = receivedMoney;
     }
 
-    public Money receivingMoney(Long receiverId){
+    public Money receive(Long receiverId){
         this.receiverId = receiverId;
         this.receivedTime = LocalDateTime.now();
-        return amount;
+        return receivedMoney;
     }
 
     public boolean isEqualToReceiverId(Long receiverId){

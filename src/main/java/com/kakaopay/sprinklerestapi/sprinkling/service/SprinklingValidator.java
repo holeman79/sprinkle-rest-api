@@ -2,31 +2,48 @@ package com.kakaopay.sprinklerestapi.sprinkling.service;
 
 import com.kakaopay.sprinklerestapi.sprinkling.domain.Sprinkling;
 import com.kakaopay.sprinklerestapi.sprinkling.exception.*;
+import com.kakaopay.sprinklerestapi.sprinkling.service.dto.CreateSprinklingRequestDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SprinklingValidator {
-    public void validateCreateRequest(SprinklingCreateRequestDto createRequest){
-        if(createRequest.getAmount() < createRequest.getPeopleCount()){
-            throw new AmountLessThanPeopleCountException("뿌리기 금액이 받을 인원수보다 커야합니다.");
+    private final long EXPIRE_RECEIVING_MINUTES = 10;
+
+    private final long EXPIRE_READ_DAYS = 7;
+
+    public void validateCreateRequest(CreateSprinklingRequestDto createRequest){
+        if(createRequest.getSprinkledMoney() < createRequest.getPeopleCount()){
+            throw new SprinkledMoneyLessThanPeopleCountException();
         }
     }
 
     public void validateReceiving(Sprinkling sprinkling, Long receiverId, String roomId, String token){
         if(!sprinkling.isEqualToToken(token)){
-            throw new SprinklingDiffrentTokenException(token);
+            throw new DifferentTokenException(token);
         }
-        if(sprinkling.isExpiredReceiving()){
-            throw new SprinklingExpiredException();
+        if(sprinkling.isExpiredReceiving(EXPIRE_RECEIVING_MINUTES)){
+            throw new ExpiredReceivingException();
         }
         if(!sprinkling.isEqualToRoomId(roomId)){
-            throw new SprinklingDiffrentRoomException(roomId);
+            throw new DifferentRoomException(roomId);
         }
         if(sprinkling.isCreatorId(receiverId)){
-            throw new SprinklingCreatorCanNotReceiveException(receiverId);
+            throw new CreatorCanNotReceiveException(receiverId);
         }
         if(sprinkling.isDuplicatedReceiverId(receiverId)){
-            throw new SprinklingDuplicatedReceiverException(receiverId);
+            throw new DuplicatedReceiverException(receiverId);
+        }
+    }
+
+    public void validateGetSprinkling(Sprinkling sprinkling, Long viewerId, String token){
+        if(sprinkling.isExpiredRead(EXPIRE_READ_DAYS)){
+            throw new ExpiredReadException();
+        }
+        if(!sprinkling.isCreatorId(viewerId)){
+            throw new CreatorCanOnlyGetSprinklingException(viewerId);
+        }
+        if(!sprinkling.isEqualToToken(token)){
+            throw new DifferentTokenException(token);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.kakaopay.sprinklerestapi.sprinkling.service;
+package com.kakaopay.sprinklerestapi.sprinkling.service.dto;
 
 import com.kakaopay.sprinklerestapi.generic.money.domain.Money;
 import com.kakaopay.sprinklerestapi.sprinkling.domain.Sprinkling;
@@ -9,33 +9,33 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SprinklingCreateResponseDto {
+public class CreateSprinklingResponseDto {
     private Long id;
     private String roomId;
     private Long creatorId;
     private Integer peopleCount;
-    private Money amount;
+    private Long sprinkledMoney;
     private String token;
-    private Money maxRandomMoney;
+    private Long maxRandomMoney;
 
     @Builder
-    private SprinklingCreateResponseDto(Long id, String roomId, Long creatorId, Integer peopleCount, Money amount, String token, Money maxRandomMoney){
+    private CreateSprinklingResponseDto(Long id, String roomId, Long creatorId, Integer peopleCount, Money sprinkledMoney, String token, Money maxRandomMoney){
         this.id = id;
         this.roomId = roomId;
         this.creatorId = creatorId;
         this.peopleCount = peopleCount;
-        this.amount = amount;
+        this.sprinkledMoney = sprinkledMoney.longValue();
         this.token = token;
-        this.maxRandomMoney = maxRandomMoney;
+        this.maxRandomMoney = maxRandomMoney.longValue();
     }
 
-    public static SprinklingCreateResponseDto of(Sprinkling sprinkling){
-        return SprinklingCreateResponseDto.builder()
+    public static CreateSprinklingResponseDto of(Sprinkling sprinkling){
+        return CreateSprinklingResponseDto.builder()
                 .id(sprinkling.getId())
                 .roomId(sprinkling.getRoomId())
                 .creatorId(sprinkling.getCreatorId())
                 .peopleCount(sprinkling.getPeopleCount())
-                .amount(sprinkling.getAmount())
+                .sprinkledMoney(sprinkling.getSprinkledMoney())
                 .token(sprinkling.getToken())
                 .maxRandomMoney(sprinkling.getMaxRandomMoney())
                 .build();

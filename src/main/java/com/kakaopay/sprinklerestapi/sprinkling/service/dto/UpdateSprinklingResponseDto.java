@@ -1,4 +1,4 @@
-package com.kakaopay.sprinklerestapi.sprinkling.service;
+package com.kakaopay.sprinklerestapi.sprinkling.service.dto;
 
 import com.kakaopay.sprinklerestapi.generic.money.domain.Money;
 import com.kakaopay.sprinklerestapi.sprinkling.domain.Sprinkling;
@@ -8,22 +8,22 @@ import lombok.*;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SprinklingUpdateResponseDto {
+public class UpdateSprinklingResponseDto {
     private Long id;
     private String roomId;
     private Long creatorId;
     private Long receiverId;
-    private Money receivedMoney;
-    private boolean isMaxAmount;
+    private Long receivedMoney;
+    private boolean isMaxRandomMoney;
 
-    public static SprinklingUpdateResponseDto of(Sprinkling sprinkling, Long receiverId, Money receivedMoney){
-        return SprinklingUpdateResponseDto.builder()
+    public static UpdateSprinklingResponseDto of(Sprinkling sprinkling, Long receiverId, Money receivedMoney){
+        return UpdateSprinklingResponseDto.builder()
                 .id(sprinkling.getId())
                 .roomId(sprinkling.getRoomId())
                 .creatorId(sprinkling.getCreatorId())
                 .receiverId(receiverId)
-                .receivedMoney(receivedMoney)
-                .isMaxAmount(receivedMoney.equals(sprinkling.getMaxRandomMoney()))
+                .receivedMoney(receivedMoney.longValue())
+                .isMaxRandomMoney(receivedMoney.equals(sprinkling.getMaxRandomMoney()))
                 .build();
     }
 }

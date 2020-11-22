@@ -1,4 +1,4 @@
-package com.kakaopay.sprinklerestapi.sprinkling.response;
+package com.kakaopay.sprinklerestapi.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +7,7 @@ import org.springframework.hateoas.RepresentationModel;
 @NoArgsConstructor
 @Getter
 public class ApiResponseDto<T> extends RepresentationModel<ApiResponseDto<T>> {
+
     private T data;
     private ApiResponseCode code;
     private String message;

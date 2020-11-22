@@ -1,12 +1,12 @@
 package com.kakaopay.sprinklerestapi.sprinkling.infra;
 
+import com.kakaopay.sprinklerestapi.sprinkling.domain.TokenProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SecureRandomTokenProviderTest {
-    SecureRandomTokenProvider secureRandomTokenProvider = new SecureRandomTokenProvider();
+    TokenProvider secureRandomTokenProvider = new SecureRandomTokenProvider();
 
     @Test
     public void generateToken(){

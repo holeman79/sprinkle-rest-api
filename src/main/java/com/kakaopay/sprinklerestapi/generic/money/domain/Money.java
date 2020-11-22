@@ -3,7 +3,9 @@ package com.kakaopay.sprinklerestapi.generic.money.domain;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Function;
 
 @Getter
 public class Money {
@@ -33,6 +35,10 @@ public class Money {
 
     public Money times(double percent) {
         return new Money(this.amount.multiply(BigDecimal.valueOf(percent)));
+    }
+
+    public static <T> Money sum(Collection<T> bags, Function<T, Money> monetary) {
+        return bags.stream().map(bag -> monetary.apply(bag)).reduce(Money.ZERO, Money::plus);
     }
 
     public Money divide(double divisor) {
