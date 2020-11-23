@@ -73,27 +73,38 @@
 == Common Response
 공통응답
 |===
-| 코드 | 코드명
-| `data`
+| 클래스 | 필드 | 타입 | 설명
+| `ApiResponseDto`
+| data
+| Object
 | 데이터
-| `code`
-| 결과코드
-| `message`
-| 결과메세지
+|
+| code
+| String
+| 응답코드
+|
+| message
+| String
+| 응답메세지
 |===
 
 응답코드
 |===
-| 코드 | 코드명
-| `SERVER_ERROR`
+| 클래스 | 코드 | 코드명
+| `ApiResponseCode`
+| SERVER_ERROR
 | 서버 에러입니다.
-| `UNAUTHORIZED`
+|
+| UNAUTHORIZED
 | 인증에 실패하였습니다.
-| `BAD_PARAMETER`
+|
+| BAD_PARAMETER
 | 요청 파라미터가 잘못 되었습니다.
-| `NOT_FOUND`
+|
+| NOT_FOUND
 | 리소스를 찾지 못했습니다.
-| `OK`
+|
+| OK
 | 요청이 성공하였습니다.
 |===
 
@@ -110,8 +121,8 @@
 | 예외가 발생한 일시
 
 |
-| status
-| HttpStatus
+| code
+| String
 | 에러 코드
 
 |
@@ -126,7 +137,7 @@
 
 |
 | subErrors
-| List<ApiSubError>
+| Array
 | 파라미터 검증 메시지
 
 | `ApiSubError`

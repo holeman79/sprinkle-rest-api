@@ -1,14 +1,12 @@
 package com.kakaopay.sprinklerestapi.sprinkling.service.dto;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import javax.validation.constraints.Positive;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 @Builder
 public class CreateSprinklingRequestDto {
     @Positive(message = "뿌릴 금액을 양수로 입력해주세요.")

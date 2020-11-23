@@ -1,6 +1,7 @@
 package com.kakaopay.sprinklerestapi.sprinkling.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kakaopay.sprinklerestapi.response.ApiResponseCode;
 import com.kakaopay.sprinklerestapi.sprinkling.service.SprinklingService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.web.servlet.MockMvc;
@@ -50,7 +50,7 @@ public class SprinklingControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("timestamp").exists())
-                .andExpect(jsonPath("status").value(HttpStatus.BAD_REQUEST.name()))
+                .andExpect(jsonPath("code").value(ApiResponseCode.MISSING_REQUEST_HEADER.name()))
                 .andExpect(jsonPath("message").exists())
                 .andExpect(jsonPath("subErrors").isEmpty());
     }
@@ -80,7 +80,7 @@ public class SprinklingControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
                 .andExpect(jsonPath("timestamp").exists())
-                .andExpect(jsonPath("status").value(HttpStatus.BAD_REQUEST.name()))
+                .andExpect(jsonPath("code").value(ApiResponseCode.BAD_REQUEST_HEADER.name()))
                 .andExpect(jsonPath("message").exists())
                 .andExpect(jsonPath("subErrors").isEmpty());
     }
@@ -110,7 +110,7 @@ public class SprinklingControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
                 .andExpect(jsonPath("timestamp").exists())
-                .andExpect(jsonPath("status").value(HttpStatus.BAD_REQUEST.name()))
+                .andExpect(jsonPath("code").value(ApiResponseCode.BAD_REQUEST_HEADER.name()))
                 .andExpect(jsonPath("message").exists())
                 .andExpect(jsonPath("subErrors").isEmpty());
     }
@@ -137,7 +137,7 @@ public class SprinklingControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("timestamp").exists())
-                .andExpect(jsonPath("status").value(HttpStatus.BAD_REQUEST.name()))
+                .andExpect(jsonPath("code").value(ApiResponseCode.BAD_PARAMETER.name()))
                 .andExpect(jsonPath("message").exists())
                 .andExpect(jsonPath("subErrors").exists());
     }

@@ -1,7 +1,7 @@
-package com.kakaopay.sprinklerestapi.sprinkling.exception.dto;
+package com.kakaopay.sprinklerestapi.response.error;
 
+import com.kakaopay.sprinklerestapi.response.ApiResponseCode;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,21 +10,21 @@ import java.util.List;
 public class ApiError {
 
   private final LocalDateTime timestamp;
-  private final HttpStatus status;
+  private final ApiResponseCode code;
   private final String message;
   private String debugMessage;
   private List<ApiSubError> subErrors;
 
-  public ApiError(HttpStatus status, String message, Throwable e) {
+  public ApiError(ApiResponseCode code, String message, Throwable e) {
     this.timestamp = LocalDateTime.now();
-    this.status = status;
+    this.code = code;
     this.message = message;
     this.debugMessage = e.toString();
   }
 
-  public ApiError(HttpStatus status, String message, List<ApiSubError> subErrors) {
+  public ApiError(ApiResponseCode code, String message, List<ApiSubError> subErrors) {
     this.timestamp = LocalDateTime.now();
-    this.status = status;
+    this.code = code;
     this.message = message;
     this.subErrors = subErrors;
   }

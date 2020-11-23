@@ -128,8 +128,8 @@ public class SprinklingReadDocumentationTest extends ApiDocumentationTest {
                                 fieldWithPath("creatorId").type(JsonFieldType.NUMBER).description("뿌리기 생성자 ID"),
                                 fieldWithPath("sprinkledTime").type(JsonFieldType.STRING).attributes(getDateFormat()).description("뿌리기 생성시간"),
                                 fieldWithPath("sprinkledMoney").type(JsonFieldType.NUMBER).description("뿌린 금액"),
-                                fieldWithPath("receivedMoney").type(JsonFieldType.NUMBER).description("받기 완료된 금액"),
-                                fieldWithPath("maxRandomMoney").type(JsonFieldType.NUMBER).description("최고 받기 금액"),
+                                fieldWithPath("receivedMoney").type(JsonFieldType.NUMBER).description("현재까지 받기 완료된 금액"),
+                                fieldWithPath("maxRandomMoney").type(JsonFieldType.NUMBER).description("최고 받을 수 있는 금액"),
                                 fieldWithPath("receivingDtos[].receivedMoney").type(JsonFieldType.NUMBER)
                                         .description("받기 완료된 정보 [받은 금액] 리스트"),
                                 fieldWithPath("receivingDtos[].receiverId").type(JsonFieldType.NUMBER)

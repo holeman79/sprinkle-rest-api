@@ -95,8 +95,8 @@ public class SprinklingReceiveDocumentationTest extends ApiDocumentationTest {
                                 fieldWithPath("roomId").type(JsonFieldType.STRING).description("뿌리기가 생성된 대화방 ID"),
                                 fieldWithPath("creatorId").type(JsonFieldType.NUMBER).description("뿌리기 생성자 ID"),
                                 fieldWithPath("receiverId").type(JsonFieldType.NUMBER).description("받기 완료한 유저 ID"),
-                                fieldWithPath("receivedMoney").type(JsonFieldType.NUMBER).description("받기 금액"),
-                                fieldWithPath("isMaxRandomMoney").type(JsonFieldType.BOOLEAN).description("최고 받기 금액 여부")
+                                fieldWithPath("receivedMoney").type(JsonFieldType.NUMBER).description("받은 금액"),
+                                fieldWithPath("isMaxRandomMoney").type(JsonFieldType.BOOLEAN).description("최고 받은 금액 여부")
                         )
                 ));
     }

@@ -1,4 +1,4 @@
-package com.kakaopay.sprinklerestapi.sprinkling.exception.dto;
+package com.kakaopay.sprinklerestapi.response.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
