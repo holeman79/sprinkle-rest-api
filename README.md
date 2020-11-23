@@ -105,3 +105,153 @@
 * ExceptionHandler를 정의하여 각 상황에서 발생하는 예외를 구분해서 처리
 * 리턴 값으로 에러 코드, 에러 메세지, 디버그 메세지, 파라미터 검증 메세지를 Dto에 담아서 반환
 
+## API 명세
+
+#### 뿌리기 API (`POST` /api/sprinklings)
+
+Request headers
+
+| Name | Description |
+| --- | --- |
+| X-USER-ID | 사용자 ID |
+| X-ROOM-ID | 대화방 ID |
+
+Request fields
+
+| Path | Type | Description |
+| --- | --- | --- |
+| sprinkledMoney | Number | 뿌릴 금액 |
+| peopleCount | Number | 뿌릴 인원 |
+
+HTTP request
+
+```
+POST /api/sprinklings HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+X-USER-ID: 100
+X-ROOM-ID: R1
+Accept: application/hal+json
+Content-Length: 50
+Host: docs.api.com
+
+{
+  "sprinkledMoney" : 1000,
+  "peopleCount" : 4
+}
+```
+
+Response fields
+
+| Path | Type | Description |
+| --- | --- | --- |
+| id | Number | 뿌리기 ID |
+| roomId | String | 뿌리기가 생성된 대화방 ID |
+| creatorId | Number | 뿌리기 생성자 ID |
+| peopleCount | Number | 뿌린 인원 |
+| sprinkledMoney | Number | 뿌린 금액 |
+| token | String | 예측 불가능한 3자리 문자열 토큰 |
+| maxRandomMoney | Number | 받을 수 있는 최고 금액 |
+
+Example response
+
+```
+HTTP/1.1 201 Created
+Location: http://localhost:8080/api/sprinklings/1
+Content-Type: application/hal+json
+Content-Length: 504
+
+{
+  "data" : {
+    "id" : 1,
+    "roomId" : "R1",
+    "creatorId" : 100,
+    "peopleCount" : 4,
+    "sprinkledMoney" : 1000,
+    "token" : "k8A",
+    "maxRandomMoney" : 250
+  },
+  "code" : "OK",
+  "message" : "요청이 성공하였습니다.",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/sprinklings/1"
+    },
+    "receiving" : {
+      "href" : "http://localhost:8080/api/sprinklings/1"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#sprinkling-create"
+    }
+  }
+}
+```
+
+#### 받기 API (`PUT` /api/sprinklings/{id})
+
+Path Variable
+
+| Parameter | Description |
+| --- | --- |
+| id | 뿌리기 아이디 |
+
+Request headers
+
+| Name | Description |
+| --- | --- |
+| X-USER-ID | 수신자 ID |
+| X-ROOM-ID | 대화방 ID |
+| X-TOKEN | 토큰 |
+
+HTTP request
+
+```
+PUT /api/sprinklings/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+X-USER-ID: 1000
+X-ROOM-ID: R1
+X-TOKEN: aHZ
+Accept: application/hal+json
+Host: docs.api.com
+```
+
+Response fields
+
+| Path | Type | Description |
+| --- | --- | --- |
+| id | Number | 뿌리기 ID |
+| roomId | String | 뿌리기가 생성된 대화방 ID |
+| creatorId | Number | 뿌리기 생성자 ID |
+| receiverId | Number | 받기 완료한 유저 ID |
+| receivedMoney | Number | 받은 금액 |
+| isMaxRandomMoney | Boolean | 최고 받은 금액 여부 |
+
+Example response
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+Content-Length: 404
+
+{
+  "data" : {
+    "id" : 1,
+    "roomId" : "R1",
+    "creatorId" : 100,
+    "receiverId" : 1000,
+    "receivedMoney" : 574,
+    "isMaxRandomMoney" : false
+  },
+  "code" : "OK",
+  "message" : "요청이 성공하였습니다.",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/sprinklings/1"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#sprinkling-receive"
+    }
+  }
+}
+```
+
+* 조회 API
