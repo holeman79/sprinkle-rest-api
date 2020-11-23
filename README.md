@@ -11,7 +11,7 @@
 ## 실행 방법
 * 프로젝트 위치에서 터미널을 실행하고 ./gradlew 명령어를 통해 프로젝트를 build합니다.
 * cd build/libs : build 후 생성된 jar파일로 이동합니다.
-* java -jar sprinkle-rest-api-0.0.1-SNAPSHOT.jar : java 명령어를 통해 실행합니다.
+* java -jar sprinkle-rest-api-0.0.1-SNAPSHOT.jar : java 명령어를 통해 실행합니다.(java11 설치필요)
 
 ## 요구 사항
 
