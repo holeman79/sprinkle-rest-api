@@ -98,7 +98,7 @@
 
 ### 7. API 문서(뿌리기, 받기, 조회)
 * Spring Rest Docs를 이용하여 API 문서 작성
-* API 호출 응답 링크 중 profile 링크를 이용해 API 참조 가능
+* API 호출 응답 링크 중 profile 링크를 이용해 API기능 참조
 * 조회 Url : http://localhost:8080/docs/index.html
    * 뿌리기 : http://localhost:8080/docs/index.html#sprinkling-create
    * 받기 : http://localhost:8080/docs/index.html#sprinkling-receive
