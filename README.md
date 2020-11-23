@@ -202,7 +202,7 @@ Request headers
 | --- | --- |
 | X-USER-ID | 수신자 ID |
 | X-ROOM-ID | 대화방 ID |
-| X-TOKEN | 토큰 |
+| X-TOKEN | 뿌리기로 발급 받은 토큰 |
 
 HTTP request
 
@@ -268,7 +268,7 @@ Request headers
 | Name | Description |
 | --- | --- |
 | X-USER-ID | 조회자 ID |
-| X-TOKEN | 토큰 |
+| X-TOKEN | 뿌리기로 발급 받은 토큰 |
 
 HTTP request
 
