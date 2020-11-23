@@ -62,5 +62,4 @@
 
 ### 1. 용어 통일성 확보
 * 단어사전, 용어사전 정의
-<img width="382" alt="words" src="https://user-images.githubusercontent.com/40617794/99963060-899cbf80-2dd4-11eb-8f5a-0a321b00d085.png">
-<img width="486" alt="terms" src="https://user-images.githubusercontent.com/40617794/99963086-928d9100-2dd4-11eb-83fe-d527c3d72e9a.png">
+<img width="382" alt="words" src="https://user-images.githubusercontent.com/40617794/99963060-899cbf80-2dd4-11eb-8f5a-0a321b00d085.png"><img width="486" alt="terms" src="https://user-images.githubusercontent.com/40617794/99963086-928d9100-2dd4-11eb-83fe-d527c3d72e9a.png">
