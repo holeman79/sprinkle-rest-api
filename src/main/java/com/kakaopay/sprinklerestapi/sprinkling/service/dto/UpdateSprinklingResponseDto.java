@@ -16,6 +16,10 @@ public class UpdateSprinklingResponseDto {
     private Long receivedMoney;
     private boolean isMaxRandomMoney;
 
+    public boolean getIsMaxRandomMoney(){
+        return isMaxRandomMoney;
+    }
+
     public static UpdateSprinklingResponseDto of(Sprinkling sprinkling, Long receiverId, Money receivedMoney){
         return UpdateSprinklingResponseDto.builder()
                 .id(sprinkling.getId())

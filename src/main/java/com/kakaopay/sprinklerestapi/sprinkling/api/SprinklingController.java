@@ -9,6 +9,7 @@ import com.kakaopay.sprinklerestapi.sprinkling.service.dto.UpdateSprinklingRespo
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/api/sprinklings")
+@Validated
 @RequiredArgsConstructor
 public class SprinklingController {
 
@@ -55,7 +57,7 @@ public class SprinklingController {
         ApiResponseDto<UpdateSprinklingResponseDto> apiResponseDto =
                 ApiResponseDto.OK(updateResponseDto)
                         .add(selfLinkBuilder.withSelfRel())
-                        .add(Link.of("/docs/index.html#sprinkling-receiving").withRel("profile"));
+                        .add(Link.of("/docs/index.html#sprinkling-receive").withRel("profile"));
 
         return ResponseEntity.ok(apiResponseDto);
     }
@@ -72,7 +74,7 @@ public class SprinklingController {
                 ApiResponseDto.OK(getResponseDto)
                         .add(selfLinkBuilder.withSelfRel())
                         .add(selfLinkBuilder.withRel("receiving"))
-                        .add(Link.of("/docs/index.html#sprinkling-get").withRel("profile"));
+                        .add(Link.of("/docs/index.html#sprinkling-read").withRel("profile"));
         return ResponseEntity.ok(apiResponseDto);
     }
 }

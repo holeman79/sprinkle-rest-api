@@ -5,6 +5,7 @@ import com.kakaopay.sprinklerestapi.sprinkling.exception.FinishedReceivingExcept
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,9 +38,12 @@ public class SprinklingTest {
         Long receiverId = 101L;
         Money firstReceivedMoney = sprinkling.receive(receiverId);
         Long targetReceiverId = sprinkling.getReceivings().get(0).getReceiverId();
+        LocalDateTime targetReceivedTime = sprinkling.getReceivings().get(0).getReceivedTime();
 
         assertThat(firstReceivedMoney.longValue()).isEqualTo(170L);
         assertThat(targetReceiverId).isEqualTo(receiverId);
+        assertThat(targetReceivedTime).isNotNull();
+
     }
 
     @Test

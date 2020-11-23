@@ -1,0 +1,269 @@
+= Sprinkling REST API Guide
+조원진;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[introduction]]
+== 소개
+돈 뿌리기, 받기, 조회 API
+
+[[overview]]
+= 개요
+
+[[overview-http-verbs]]
+== HTTP 동사
+
+|===
+| 동사 | 용례
+
+| `GET`
+| 리소스를 가져올 때 사용
+
+| `POST`
+| 새 리소스를 만들 때 사용
+
+| `PUT`
+| 기존 리소스를 수정할 때 사용
+
+| `PATCH`
+| 기존 리소스의 일부를 수정할 때 사용
+
+| `DELETE`
+| 기존 리소스를 삭제할 떄 사용
+|===
+
+[[overview-http-status-codes]]
+== HTTP 상태 코드
+
+|===
+| 상태 코드 | 용례
+
+| `200 OK`
+| 요청을 성공적으로 처리함
+
+| `201 Created`
+| 새 리소스를 성공적으로 생성함. 응답의 `Location` 헤더에 해당 리소스의 URI가 담겨있다.
+
+| `204 No Content`
+| 기존 리소스를 성공적으로 수정함.
+
+| `400 Bad Request`
+| 잘못된 요청을 보낸 경우. 응답 본문에 더 오류에 대한 정보가 담겨있다.
+
+| `404 Not Found`
+| 요청한 리소스가 없음.
+
+| `500 Internal Server Error`
+| 서버에 오류가 발생하여 요청을 수행할 수 없음.
+|===
+
+[[overview-hypermedia]]
+== 하이퍼미디어
+
+본 REST API는 하이퍼미디어와 사용하며 응답에 담겨있는 리소스는 다른 리소스에 대한 링크를 가지고 있다.
+응답은 `Hypertext Application Language (HAL)` 형식을 따른다.
+링크는 `_links` 라는 키로 제공한다.
+
+[[common]]
+= 공통사항
+== Common Response
+공통응답
+|===
+| 코드 | 코드명
+| `data`
+| 데이터
+| `code`
+| 결과코드
+| `message`
+| 결과메세지
+|===
+
+응답코드
+|===
+| 코드 | 코드명
+| `SERVER_ERROR`
+| 서버 에러입니다.
+| `UNAUTHORIZED`
+| 인증에 실패하였습니다.
+| `BAD_PARAMETER`
+| 요청 파라미터가 잘못 되었습니다.
+| `NOT_FOUND`
+| 리소스를 찾지 못했습니다.
+| `OK`
+| 요청이 성공하였습니다.
+|===
+
+
+[[errors]]
+== 오류 발생시 Response
+
+|===
+| 클래스 | 필드 | 타입 | 설명
+
+| `ApiError`
+| timestamp
+| LocalDateTime
+| 예외가 발생한 일시
+
+|
+| status
+| HttpStatus
+| 에러 코드
+
+|
+| message
+| String
+| 노출용 메시지
+
+|
+| debugMessage
+| String
+| 디버그용 메시지
+
+|
+| subErrors
+| List<ApiSubError>
+| 파라미터 검증 메시지
+
+| `ApiSubError`
+| object
+| String
+| 클래스명
+
+|
+| field
+| String
+| 필드명
+
+|
+| rejectedValue
+| Object
+| 검증 실패한 입력 값
+
+|
+| message
+| String
+| 상세 메시지
+|===
+
+
+[[resources]]
+= API Resource
+
+== 뿌리기 API
+
+[[sprinkling-create]]
+
+=== Request
+
+==== Request Header
+
+include::{snippets}/sprinkling-create/request-headers.adoc[]
+
+==== Request Fields
+
+include::{snippets}/sprinkling-create/request-fields.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/sprinkling-create/http-request.adoc[]
+
+=== Response
+
+==== Response Header
+
+include::{snippets}/sprinkling-create/response-headers.adoc[]
+
+==== Response Fields
+
+include::{snippets}/sprinkling-create/response-fields-data.adoc[]
+
+==== Link Fields
+
+include::{snippets}/sprinkling-create/links.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/sprinkling-create/http-response.adoc[]
+
+&#160;
+
+== 받기 API
+
+[[sprinkling-receive]]
+
+=== Request
+
+==== Request Parameter
+
+include::{snippets}/sprinkling-receive/path-parameters.adoc[]
+
+==== Request Header
+
+include::{snippets}/sprinkling-receive/request-headers.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/sprinkling-receive/http-request.adoc[]
+
+=== Response
+
+==== Response Header
+
+include::{snippets}/sprinkling-receive/response-headers.adoc[]
+
+==== Response Fields
+
+include::{snippets}/sprinkling-receive/response-fields-data.adoc[]
+
+==== Link Fields
+
+include::{snippets}/sprinkling-receive/links.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/sprinkling-receive/http-response.adoc[]
+
+&#160;
+
+== 조회 API
+
+[[sprinkling-read]]
+
+=== Request
+
+==== Request Parameter
+
+include::{snippets}/sprinkling-read/path-parameters.adoc[]
+
+==== Request Header
+
+include::{snippets}/sprinkling-read/request-headers.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/sprinkling-read/http-request.adoc[]
+
+=== Response
+
+==== Response Header
+
+include::{snippets}/sprinkling-read/response-headers.adoc[]
+
+==== Response Fields
+
+include::{snippets}/sprinkling-read/response-fields-data.adoc[]
+
+==== Link Fields
+
+include::{snippets}/sprinkling-read/links.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/sprinkling-read/http-response.adoc[]
+
+&#160;

@@ -23,7 +23,6 @@ public class GetSprinklingResponseDto {
 
     private List<ReceivingDto> receivingDtos;
 
-
     @Getter
     @Builder
     @AllArgsConstructor(access = AccessLevel.PRIVATE)

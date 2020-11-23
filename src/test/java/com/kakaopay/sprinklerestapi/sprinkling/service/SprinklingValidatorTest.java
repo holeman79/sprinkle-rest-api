@@ -19,7 +19,7 @@ public class SprinklingValidatorTest {
     private SprinklingValidator sprinklingValidator = new SprinklingValidator();
 
     @Test
-    @DisplayName("뿌리기요청 파라미터 검증 : 뿌릴 금액이 사람 수보다 적을 경우 실패")
+    @DisplayName("뿌리기요청 파라미터 검증 : 뿌린 금액이 사람 수보다 적을 경우 실패")
     public void sprinkledMoney_less_than_people_count(){
         CreateSprinklingRequestDto createRequestDto = CreateSprinklingRequestDto.builder()
                 .sprinkledMoney(5)
@@ -30,7 +30,7 @@ public class SprinklingValidatorTest {
     }
 
     @Test
-    @DisplayName("뿌리기요청 파라미터 검증 : 뿌릴 금액이 사람 수보다 크거나 같을 경우 성공")
+    @DisplayName("뿌리기요청 파라미터 검증 : 뿌린 금액이 사람 수보다 크거나 같을 경우 성공")
     public void sprinkledMoney_greater_than_or_equal_to_people_count(){
         CreateSprinklingRequestDto createRequestDto = CreateSprinklingRequestDto.builder()
                 .sprinkledMoney(6)

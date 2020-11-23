@@ -62,6 +62,7 @@ public class Money {
         return Objects.equals(amount.doubleValue(), other.amount.doubleValue());
     }
 
+
     public int hashCode() {
         return Objects.hashCode(amount);
     }
