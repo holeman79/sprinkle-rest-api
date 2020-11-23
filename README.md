@@ -1,12 +1,17 @@
 # sprinkle-rest-api
 
 ## 목차
-
+* [실행 방법](#실행-방법)
 * [요구 사항](#요구-사항)
 * [상세 구현 요건 및 제약사항](#상세-구현-요건-및-제약사항)
 * [개발 환경](#개발-환경)
 * [문제해결 전략](#문제해결-전략)
 * [구현 내역](#구현-내역)
+
+## 실행 방법
+* 프로젝트 위치에서 터미널을 실행하고 ./gradlew 명령어를 통해 프로젝트를 build합니다.
+* cd build/libs : build 후 생성된 jar파일로 이동합니다.
+* java -jar sprinkle-rest-api-0.0.1-SNAPSHOT.jar : java 명령어를 통해 실행합니다.
 
 ## 요구 사항
 
@@ -91,7 +96,11 @@
 ### 6. API 문서(뿌리기, 받기, 조회)
 * Spring Rest Docs를 이용하여 API 문서 작성
 * API 호출 응답 링크 중 profile 링크를 이용해 API 참조 가능
-
+* 조회 Url : http://localhost:8080/docs/index.html
+   * 뿌리기 : http://localhost:8080/docs/index.html#sprinkling-create
+   * 받기 : http://localhost:8080/docs/index.html#sprinkling-receive
+   * 조회 : http://localhost:8080/docs/index.html#sprinkling-get
+   
 ### 7. 예외 처리
 * ExceptionHandler를 정의하여 각 상황에서 발생하는 예외를 구분해서 처리
 * 리턴 값으로 에러 코드, 에러 메세지, 디버그 메세지, 파라미터 검증 메세지를 Dto에 담아서 반환
