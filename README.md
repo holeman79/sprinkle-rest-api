@@ -132,7 +132,6 @@ X-USER-ID: 100
 X-ROOM-ID: R1
 Accept: application/hal+json
 Content-Length: 50
-Host: docs.api.com
 
 {
   "sprinkledMoney" : 1000,
@@ -211,7 +210,6 @@ X-USER-ID: 1000
 X-ROOM-ID: R1
 X-TOKEN: aHZ
 Accept: application/hal+json
-Host: docs.api.com
 ```
 
 Response fields
@@ -254,4 +252,79 @@ Content-Length: 404
 }
 ```
 
-* 조회 API
+#### 조회 API (`GET` /api/sprinklings/{id})
+
+Path Variable
+
+| Parameter | Description |
+| --- | --- |
+| id | 뿌리기 아이디 |
+
+Request headers
+
+| Name | Description |
+| --- | --- |
+| X-USER-ID | 조회자 ID |
+| X-TOKEN | 토큰 |
+
+HTTP request
+
+```
+GET /api/sprinklings/1 HTTP/1.1
+X-USER-ID: 100
+X-TOKEN: aHZ
+```
+
+Response fields
+
+| Path | Type | Description |
+| --- | --- | --- |
+| id | Number | 뿌리기 ID |
+| roomId | String | 뿌리기가 생성된 대화방 ID |
+| creatorId | Number | 뿌리기 생성자 ID |
+| sprinkledTime | String | 뿌리기 생성시간 |
+| sprinkledMoney | Number | 뿌린 금액 |
+| receivedMoney | Number | 받은 금액 |
+| maxRandomMoney | Number | 최고 받을 수 있는 금액 |
+| receivingDtos[].receivedMoney | Number | 받기 완료된 정보 [받은 금액] 리스트 |
+| receivingDtos[].receiverId | Number | 받기 완료된 정보 [받은 사용자 아이디] 리스트 |
+
+Example response
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+Content-Length: 690
+
+{
+  "data" : {
+    "id" : 1,
+    "roomId" : "R1",
+    "creatorId" : 100,
+    "sprinkledTime" : "2020-11-23T21:27:50.40813",
+    "sprinkledMoney" : 1000,
+    "receivedMoney" : 857,
+    "maxRandomMoney" : 574,
+    "receivingDtos" : [ {
+      "receivedMoney" : 283,
+      "receiverId" : 1001
+    }, {
+      "receivedMoney" : 574,
+      "receiverId" : 1002
+    } ]
+  },
+  "code" : "OK",
+  "message" : "요청이 성공하였습니다.",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/sprinklings/1"
+    },
+    "receiving" : {
+      "href" : "http://localhost:8080/api/sprinklings/1"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#sprinkling-read"
+    }
+  }
+}
+```
