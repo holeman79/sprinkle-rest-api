@@ -90,8 +90,8 @@
 * infra : Random Token 발급기, 뿌리기 금액 분배기 기능 동작여부 테스트
 * repository : Receiving Entity 낙관적 Lock 동작여부 테스트
 * service : SprinklingValidator, SprinklingMapper 기능 테스트
-   * SprinklingValidator : 요청 값 검증, 뿌리기 만료 여부 등의 검증기능 동작 테스트
-   * SprinklingMapper : 요청 값을 통해 만들어진 Sprinkling의 데이터 정상여부 테스트
+   * SprinklingValidatorTest : 요청 값 논리적 검증, 뿌리기 만료 여부 등의 검증기능 동작 테스트
+   * SprinklingMapperTest : SprinklingMapper 클래스가 요청 값을 통해 만들어낸 Sprinkling의 데이터 정상여부 테스트
    
 ### 6. 토큰 생성, 뿌리기 금액 나누기
 * SecureRandom 클래스를 이용하여 random하게 값 생성
