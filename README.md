@@ -76,9 +76,9 @@
 <img width="376" alt="테이블 구성" src="https://user-images.githubusercontent.com/40617794/99963945-e3ea5000-2dd5-11eb-97cb-a420c21a84e3.png">
 
 ### 3. Rest API
-* Rest API 요건 중에서도 Uniform Interface의 self-descrptive messages와 HATEOS를 만족하고자 함.
+* Rest API 요건 중에서도 Uniform Interface의 self-descrptive messages와 HATEOAS를 만족하고자 함.
 * Self-descriptive: profile 링크를 이용하여 메시지 상세 API문서 조회
-* HATEOS: Spring HATEOS 사용
+* HATEOAS를: Spring HATEOAS를 사용
 
 ### 4. JPA 낙관적 Lock
 * JPA Version 낙관적 Lock을 이용하여 격리성 보장
