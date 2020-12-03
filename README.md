@@ -6,7 +6,7 @@
 * [상세 구현 요건 및 제약사항](#상세-구현-요건-및-제약사항)
 * [개발 환경](#개발-환경)
 * [문제해결 전략](#문제해결-전략)
-* [구현 내역](#구현-내역)
+* [API 명세](#API-명세)
 
 ## 실행 방법
 * 프로젝트 위치에서 터미널을 실행하고 ./gradlew 명령어를 통해 프로젝트를 build합니다.
@@ -76,32 +76,35 @@
 <img width="376" alt="테이블 구성" src="https://user-images.githubusercontent.com/40617794/99963945-e3ea5000-2dd5-11eb-97cb-a420c21a84e3.png">
 
 ### 3. Rest API
-* Rest API 요건 중에서도 Uniform Interface의 self-descrptive messages와 HATEOS를 만족하고자 함.
+* Rest API 요건 중에서도 Uniform Interface의 self-descrptive messages와 HATEOAS를 만족하고자 함.
 * Self-descriptive: profile 링크를 이용하여 메시지 상세 API문서 조회
-* HATEOS: Spring HATEOS 사용
+* HATEOAS를: Spring HATEOAS를 사용
 
-### 4. 테스트
-* api : 헤더, 파라미터 검증 테스트, Spring Rest Docs 작성
+### 4. JPA 낙관적 Lock
+* JPA Version 낙관적 Lock을 이용하여 격리성 보장
+
+### 5. 테스트
+* api : request header, parameter 검증 테스트, Spring Rest Docs 작성
 * domain : Sprinkling Entity 기능 검증 
    * 받기, Max Random Money 값 가져오기, 받기 완료된 List 가져오기, 총 받은 금액 가져오기 기능 테스트
-* infra : Random Token 발급기, 뿌리기 금액 분배기 기능 테스트
+* infra : Random Token 발급기, 뿌리기 금액 분배기 기능 동작여부 테스트
 * repository : Receiving Entity 낙관적 Lock 동작여부 테스트
 * service : SprinklingValidator, SprinklingMapper 기능 테스트
-   * SprinklingValidator : 요청 값 검증, 뿌리기 만료 여부 등의 검증기능 동작 테스트
-   * SprinklingMapper : 요청 값을 통해 만들어진 Sprinkling의 데이터 정상여부 테스트
+   * SprinklingValidatorTest : 요청 값 논리적 검증, 뿌리기 만료 여부 등의 검증기능 동작 테스트
+   * SprinklingMapperTest : SprinklingMapper 클래스가 요청 값을 통해 만들어낸 Sprinkling의 데이터 정상여부 테스트
    
-### 5. 토큰 생성, 뿌리기 금액 나누기
+### 6. 토큰 생성, 뿌리기 금액 나누기
 * SecureRandom 클래스를 이용하여 random하게 값 생성
 
-### 6. API 문서(뿌리기, 받기, 조회)
+### 7. API 문서(뿌리기, 받기, 조회)
 * Spring Rest Docs를 이용하여 API 문서 작성
-* API 호출 응답 링크 중 profile 링크를 이용해 API 참조 가능
+* API 호출 응답 링크 중 profile 링크를 이용해 API기능 참조
 * 조회 Url : http://localhost:8080/docs/index.html
    * 뿌리기 : http://localhost:8080/docs/index.html#sprinkling-create
    * 받기 : http://localhost:8080/docs/index.html#sprinkling-receive
    * 조회 : http://localhost:8080/docs/index.html#sprinkling-get
    
-### 7. 예외 처리
+### 8. 예외 처리
 * ExceptionHandler를 정의하여 각 상황에서 발생하는 예외를 구분해서 처리
 * 리턴 값으로 에러 코드, 에러 메세지, 디버그 메세지, 파라미터 검증 메세지를 Dto에 담아서 반환
 
@@ -199,7 +202,7 @@ Request headers
 | --- | --- |
 | X-USER-ID | 수신자 ID |
 | X-ROOM-ID | 대화방 ID |
-| X-TOKEN | 토큰 |
+| X-TOKEN | 뿌리기로 발급 받은 토큰 |
 
 HTTP request
 
@@ -265,7 +268,7 @@ Request headers
 | Name | Description |
 | --- | --- |
 | X-USER-ID | 조회자 ID |
-| X-TOKEN | 토큰 |
+| X-TOKEN | 뿌리기로 발급 받은 토큰 |
 
 HTTP request
 
