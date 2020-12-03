@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SprinklingValidator {
-    private final long EXPIRE_RECEIVING_MINUTES = 10;
+    public static final long EXPIRE_RECEIVING_MINUTES = 10;
 
-    private final long EXPIRE_READ_DAYS = 7;
+    public static final long EXPIRE_READ_DAYS = 7;
 
     public void validateCreateRequest(CreateSprinklingRequestDto createRequest){
         if(createRequest.getSprinkledMoney() < createRequest.getPeopleCount()){
@@ -21,7 +21,7 @@ public class SprinklingValidator {
         if(!sprinkling.isEqualToToken(token)){
             throw new DifferentTokenException(token);
         }
-        if(sprinkling.isExpiredReceiving(EXPIRE_RECEIVING_MINUTES)){
+        if(sprinkling.isExpiredReceiving()){
             throw new ExpiredReceivingException();
         }
         if(!sprinkling.isEqualToRoomId(roomId)){
@@ -36,7 +36,7 @@ public class SprinklingValidator {
     }
 
     public void validateGetSprinkling(Sprinkling sprinkling, Long viewerId, String token){
-        if(sprinkling.isExpiredRead(EXPIRE_READ_DAYS)){
+        if(sprinkling.isExpiredRead()){
             throw new ExpiredReadException();
         }
         if(!sprinkling.isCreatorId(viewerId)){

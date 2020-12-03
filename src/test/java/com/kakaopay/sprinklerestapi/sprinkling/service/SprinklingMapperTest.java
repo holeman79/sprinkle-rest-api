@@ -63,4 +63,6 @@ public class SprinklingMapperTest {
         assertThat(sprinkling.getToken()).isEqualTo(token);
         assertThat(sprinkling.getReceivings().size()).isEqualTo(splattedMoneys.size());
     }
+
+
 }

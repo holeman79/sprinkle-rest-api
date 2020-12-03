@@ -41,6 +41,7 @@ public class SprinklingController {
                 ApiResponseDto.OK(createResponseDto)
                         .add(selfLinkBuilder.withSelfRel())
                         .add(selfLinkBuilder.withRel("receiving"))
+                        .add(selfLinkBuilder.withRel("read"))
                         .add(Link.of("/docs/index.html#sprinkling-create").withRel("profile"));
         return ResponseEntity.created(createdUri).body(apiResponseDto);
     }

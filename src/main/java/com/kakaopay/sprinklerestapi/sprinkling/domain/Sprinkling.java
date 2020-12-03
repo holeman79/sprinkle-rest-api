@@ -1,9 +1,12 @@
 package com.kakaopay.sprinklerestapi.sprinkling.domain;
 
 import com.kakaopay.sprinklerestapi.generic.money.domain.Money;
-import com.kakaopay.sprinklerestapi.sprinkling.exception.ReceivingIsEmptyException;
 import com.kakaopay.sprinklerestapi.sprinkling.exception.FinishedReceivingException;
-import lombok.*;
+import com.kakaopay.sprinklerestapi.sprinkling.exception.ReceivingIsEmptyException;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -12,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static com.kakaopay.sprinklerestapi.sprinkling.service.SprinklingValidator.EXPIRE_READ_DAYS;
+import static com.kakaopay.sprinklerestapi.sprinkling.service.SprinklingValidator.EXPIRE_RECEIVING_MINUTES;
 
 @Entity
 @Table(name = "SPRINKLINGS")
@@ -103,11 +109,11 @@ public class Sprinkling {
         return Objects.equals(this.token, token);
     }
 
-    public boolean isExpiredReceiving(long EXPIRE_RECEIVING_MINUTES){
+    public boolean isExpiredReceiving(){
         return this.sprinkledTime.plusMinutes(EXPIRE_RECEIVING_MINUTES).isBefore(LocalDateTime.now());
     }
 
-    public boolean isExpiredRead(long EXPIRE_READ_DAYS){
+    public boolean isExpiredRead(){
         return this.sprinkledTime.plusDays(EXPIRE_READ_DAYS).isBefore(LocalDateTime.now());
     }
 

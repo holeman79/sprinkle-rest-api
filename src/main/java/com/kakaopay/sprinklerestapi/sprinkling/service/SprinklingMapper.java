@@ -1,10 +1,7 @@
 package com.kakaopay.sprinklerestapi.sprinkling.service;
 
 import com.kakaopay.sprinklerestapi.generic.money.domain.Money;
-import com.kakaopay.sprinklerestapi.sprinkling.domain.RandomMoneySplitter;
-import com.kakaopay.sprinklerestapi.sprinkling.domain.Receiving;
-import com.kakaopay.sprinklerestapi.sprinkling.domain.Sprinkling;
-import com.kakaopay.sprinklerestapi.sprinkling.domain.TokenProvider;
+import com.kakaopay.sprinklerestapi.sprinkling.domain.*;
 import com.kakaopay.sprinklerestapi.sprinkling.service.dto.CreateSprinklingRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -38,5 +35,7 @@ public class SprinklingMapper {
                 .map(Receiving::new)
                 .collect(toList());
     }
+
+
 
 }

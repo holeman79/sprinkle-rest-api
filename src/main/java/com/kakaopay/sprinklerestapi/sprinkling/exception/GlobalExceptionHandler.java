@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(SprinkleException.class)
   protected ResponseEntity<ApiError> handle(SprinkleException e) {
-    ApiError apiError = new ApiError(ApiResponseCode.SERVER_ERROR, e.getLocalizedMessage(), e);
+    ApiError apiError = new ApiError(ApiResponseCode.BAD_PARAMETER, e.getLocalizedMessage(), e);
     return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 

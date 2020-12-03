@@ -83,6 +83,7 @@ public class SprinklingCreateDocumentationTest extends ApiDocumentationTest {
                 .andExpect(jsonPath("message").exists())
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.receiving").exists())
+                .andExpect(jsonPath("_links.read").exists())
                 .andExpect(jsonPath("_links.profile").exists())
 
                 .andDo(document("sprinkling-create",
@@ -91,6 +92,7 @@ public class SprinklingCreateDocumentationTest extends ApiDocumentationTest {
                         links(
                                 linkWithRel("self").description("link to self"),
                                 linkWithRel("receiving").description("받기 링크"),
+                                linkWithRel("read").description("조회 링크"),
                                 linkWithRel("profile").description("뿌리기 api 문서 이동 Link")
                         ),
                         requestHeaders(
