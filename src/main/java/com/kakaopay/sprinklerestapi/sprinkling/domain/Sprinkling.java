@@ -97,11 +97,11 @@ public class Sprinkling {
         return Money.sum(getReceivingCompletedList(), Receiving::getReceivedMoney);
     }
 
-    public Money receive(Long receiverId){
+    public synchronized Money receive(Long receiverId){
         Receiving target = receivings.stream()
                 .filter(receiving -> receiving.getReceiverId() == null)
                 .findFirst()
-                .orElseThrow(() -> new FinishedReceivingException());
+                .orElseThrow(FinishedReceivingException::new);
         return target.receive(receiverId);
     }
 
